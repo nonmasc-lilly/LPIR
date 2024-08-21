@@ -1,5 +1,7 @@
 # LillyPad Intermediate Representation
 
+[//]: # (TODO: create formal tex file)
+
 This is the IR for LillyPad and is roughly based
 on my knowledge of x86-64 assembly.
 
@@ -54,6 +56,9 @@ There are also the following instructions:
 | stx  m r16 | [a0] = a1                       |                              |     |
 | ste  m r32 | [a0] = a1                       |                              |     |
 | str  m r64 | [a0] = a1                       |                              |     |
+| ldr  r i64 | a0 = a1                         |                              |   z |
+| mvr  r r   | a0 = a1                         |                              |   z |
+| ldm  r m   | a0   = [a1]                     |                              |   z |
 | call m     | [SP] = IP, SP = SP + 8, IP = a0 |                              |     |
 | ret        | SP = SP - 8, IP = [SP]          |                              |     |
 -------------------------------------------------------------------------------------
@@ -81,7 +86,7 @@ We may set those reserved bytes at compile time with:
 
 ```
 <cset>   ::= "cset" <WSP> <iden> <WSP> <param>
-<param>  ::= <int> | <int> <WSP> "," <WSP> <param>
+<param>  ::= <int> | <string> | <param> <WSP> "," <WSP> <param>
 ```
 
 Comments are written as so:
